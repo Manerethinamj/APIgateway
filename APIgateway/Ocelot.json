@@ -1,0 +1,88 @@
+{
+  "ReRoutes": [
+    {
+
+      "DownstreamPathTemplate": "/api/AirlineService",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/AirlineService",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airlines"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/AirlineService/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/AirlineService/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "airlines"
+
+    },
+    //{
+
+    //  "DownstreamPathTemplate": "/api/userReg/{username}/{password}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": "2389"
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/login/{username}/{password}",
+    //  "UpstreamHttpMethod": [ "GET" , "POST" ],
+    //  "SwaggerKey": "2389"
+    // },
+    
+    {
+
+      "DownstreamPathTemplate": "/api/userReg",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/allUser",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "user"
+
+    }
+
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "airline",
+      "Config": [
+        {
+          "Name": "Airline API",
+          "Version": "v1",
+          "Url": "http://localhost:15611/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "userservice",
+      "Config": [
+        {
+          "Name": "User API",
+          "Version": "v1",
+          "Url": "http://localhost:2389/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+
+}
