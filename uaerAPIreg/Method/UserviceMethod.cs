@@ -24,6 +24,8 @@ namespace userAPIreg.Method
                 cmd.Parameters.AddWithValue("@meal", meal);
                 cmd.Parameters.AddWithValue("@discountcode", discount_info);
                 cmd.ExecuteNonQuery();
+
+                //hello
                 for (int i = 0; i < n; i++)
                 {
                     SqlCommand travellercmd = new SqlCommand("sp_add_traveller_info", bookconnection);
