@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AirlineAPIservice.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using userAPIreg.Method;
 using userAPIreg.Models;
 
 
@@ -17,11 +19,14 @@ namespace userAPIreg.Controllers
     public class userRegController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        string key = "string";
 
         public userRegController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+        //get all users
         // GET: api/<userRegController>
         [HttpGet]
         public IEnumerable<userModel> Get()
@@ -44,72 +49,74 @@ namespace userAPIreg.Controllers
                         userrow.role_id = reader.GetInt32(reader.GetOrdinal("role_id"));
                         users.Add(userrow);
                     }
-                }
+            }
             usertblDbConnection.Close();
-            
+
             return users;
         }
 
 
-
-
+        //login.
         // GET api/<userRegController>/5
-        [HttpGet("{id}")]
-        public string Get(string user_name,string password)
+        [HttpGet("/api/v1.0/flight/Login")]
+        public bool Get(string user_name, string password)
         {
             userModel user_login = new userModel();
-            return loginsucccess(user_name, password).ToString();
-
-        }
-
-        // POST api/<userRegController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<userRegController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<userRegController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-        public bool loginsucccess(string user_name, string password)
-        {
-
             string userDbConnectionString = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            fetchuserMethod fetchuser = new fetchuserMethod();
+            bool isactiveuser = fetchuser.loginsucccess(user_name, password, userDbConnectionString);                
+            return isactiveuser;
+        }
 
-            bool activeuser = true;
-            SqlConnection usertblDbConnection = new SqlConnection(userDbConnectionString);
-            SqlCommand cmd = new SqlCommand("select id,user_name,role_id from [dbo].[ar_user] where user_name ='" + user_name + "' and password ='" + password + "';",
-                usertblDbConnection);
-            usertblDbConnection.Open();
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        userModel userrow = new userModel();
-                        userrow.id = reader.GetInt32(reader.GetOrdinal("id"));
-                        userrow.user_name = reader.GetString(reader.GetOrdinal("user_name"));
-                        userrow.role_id = reader.GetInt32(reader.GetOrdinal("role_id"));
-                    }
-                    activeuser = true;
-                }
-                else
-                    activeuser = false;
-            }
-            usertblDbConnection.Close();
+        //booking flight.
+        //post : book flight
+        [HttpPost("/api/v1.0/flight/booking")]
+        public void Bookingticket(int InvrntoryID, string username, string meal,string discount_code, List<travelerinformation> travelerinformations)
+        {
+            int n = travelerinformations.Count;
+            UserviceMethod userviceMethod = new UserviceMethod();
+            string bookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(bookconnection);
+            userviceMethod.bookticket(sqlcon, InvrntoryID, username, n, meal,discount_code, travelerinformations);
 
 
+        }
 
-            return activeuser;
+        //fetch PNR
+        //get flight travel detail based on PNR
+        [HttpGet("/api/v1.0/flight/ticket/{pnr}")]
+        public List<FetchuserModel> Fetchticketonpnr(string pnr)
+        {
+
+            UserviceMethod userviceMethod = new UserviceMethod();
+            string bookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(bookconnection);
+            List<FetchuserModel> fetchusersbyPNR = userviceMethod.fetchuserbypnr(sqlcon, pnr);
+            return fetchusersbyPNR;
+        }
+
+        //Fetch History with Email_ID
+        //Get menthod
+        [HttpGet("/api/v1.0/flight/history/{email}")]
+        public List<FetchuserModel> Fetchticketonemail(string email_id)
+        {
+            UserviceMethod userviceMethod = new UserviceMethod();
+            string bookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(bookconnection);
+            List<FetchuserModel> fetchusersbyPNR = userviceMethod.fetchuserbyemail(sqlcon, email_id);
+            return fetchusersbyPNR;
+        }
+
+        //cancel ticket with PNR
+        //update's Booking status
+        [HttpDelete("/api/v1.0/flight/booking/cancel/{pnr}")]
+        public void CancelBooking(string pnr)
+        {
+            UserviceMethod userviceMethod = new UserviceMethod();
+            string cancelbookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(cancelbookconnection);
+            DateTime getdate = DateTime.Now;
+            userviceMethod.Cancelbookedticket(sqlcon, pnr,getdate);
         }
 
     }

@@ -2,7 +2,7 @@
   "ReRoutes": [
     {
 
-      "DownstreamPathTemplate": "/api/AirlineService",
+      "DownstreamPathTemplate": "/api/v1.0/flight/search",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,14 +10,17 @@
           "Port": "15611"
         }
       ],
-      "UpstreamPathTemplate": "/AirlineService",
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //},
+      "UpstreamPathTemplate": "/api/v1.0/flight/search",
       "UpstreamHttpMethod": [ "GET", "POST" ],
-      "SwaggerKey": "airlines"
-
+      "SwaggerKey": "airline"
     },
     {
 
-      "DownstreamPathTemplate": "/api/AirlineService/{id}",
+      "DownstreamPathTemplate": "/api/v1.0/flight/airline/inventory/add",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -25,29 +28,29 @@
           "Port": "15611"
         }
       ],
-      "UpstreamPathTemplate": "/AirlineService/{id}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "SwaggerKey": "airlines"
-
+      "UpstreamPathTemplate": "/api/v1.0/flight/airline/inventory/add",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
     },
-    //{
 
-    //  "DownstreamPathTemplate": "/api/userReg/{username}/{password}",
-    //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": "2389"
-    //    }
-    //  ],
-    //  "UpstreamPathTemplate": "/login/{username}/{password}",
-    //  "UpstreamHttpMethod": [ "GET" , "POST" ],
-    //  "SwaggerKey": "2389"
-    // },
-    
     {
 
-      "DownstreamPathTemplate": "/api/userReg",
+      "DownstreamPathTemplate": "/api/v1.0/flight/airline/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/airline/register",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/Login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -55,11 +58,86 @@
           "Port": "2389"
         }
       ],
-      "UpstreamPathTemplate": "/allUser",
+      "UpstreamPathTemplate": "/api/v1.0/login/",
       "UpstreamHttpMethod": [ "GET", "POST" ],
-      "SwaggerKey": "user"
+      "SwaggerKey": "userservice"
+    },
 
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/booking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/booking",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "userservice"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/ticket/{pnr}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/ticket/{pnr}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "userservice"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/history/{email}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/history/{email}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "userservice"
+    },
+
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/booking/cancel/{pnr}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/booking/cancel/{pnr}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "SwaggerKey": "userservice"
+    },
+
+    {
+
+      "DownstreamPathTemplate": "/api/userLogin/Aurthenticate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "17604"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/userLogin/Aurthenticate",
+      "UpstreamHttpMethod": [ "PATCH" ],
+      "SwaggerKey": "Login"
     }
+
 
   ],
   "SwaggerEndPoints": [
@@ -80,6 +158,17 @@
           "Name": "User API",
           "Version": "v1",
           "Url": "http://localhost:2389/swagger/v1/swagger.json"
+        }
+      ]
+    },
+
+    {
+      "Key": "Login",
+      "Config": [
+        {
+          "Name": "My API V1",
+          "Version": "v1",
+          "Url": "http://localhost:17604/swagger/v1/swagger.json"
         }
       ]
     }

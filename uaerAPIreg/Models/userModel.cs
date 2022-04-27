@@ -12,5 +12,7 @@ namespace userAPIreg.Models
         public string email_id { get; set; }
         public string password { get;set; }
         public int role_id { get; set; }
+        public string Place { get; set; }
+        public int User_Status_ID { get; set; }
     }
 }
