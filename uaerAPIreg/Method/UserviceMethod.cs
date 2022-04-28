@@ -11,10 +11,14 @@ namespace userAPIreg.Method
 {
     public class UserviceMethod
     {
-        internal void bookticket(SqlConnection bookconnection, int invrntoryID, string username, int n,string discount_info, string meal, List<travelerinformation> travelerinformations)
+        internal void bookticket(SqlConnection bookconnection, int invrntoryID, string username, int n, string meal, string discount_info, List<travelerinformation> travelerinformations)
         {
             try
             {
+                if (discount_info == null)
+                {
+                    discount_info = "NO CODE";
+                }
                 bookconnection.Open();
                 SqlCommand cmd = new SqlCommand("sp_ticket_booking", bookconnection);
                 cmd.CommandType = CommandType.StoredProcedure;
