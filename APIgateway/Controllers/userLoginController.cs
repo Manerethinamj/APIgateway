@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using APIgateway.usermethod;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,14 +36,22 @@ namespace APIgateway.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPatch("Aurthenticate")]
-        public IActionResult Aurthenticate([FromBody] usercred usercred)
+        [HttpPost("Aurthenticate")]
+        public usercred Aurthenticate([FromBody] usercred usercred)
+        
         {
-            var token = aurthenticationManager.Aurthenticate(usercred.Username, usercred.Password);
-            if (token == null)
-                return Unauthorized();
-
-            return Ok();
+            usercred user_login = new usercred();
+            string userDbConnectionString = "Data Source=JRDOTNETFSECO-2;Initial Catalog=AirlineAccountInfomation;User id=sa;Password=pass@word1;";
+            userFetchmentod fetchuser = new userFetchmentod();
+            usercred isactiveuser = fetchuser.loginsucccess(usercred.Username, usercred.Password, userDbConnectionString);
+            if (usercred.Username == isactiveuser.Username && usercred.Password == isactiveuser.Password)
+            {
+                var token = aurthenticationManager.Aurthenticate(usercred.Username, usercred.Password);
+                isactiveuser.token = token;
+                return isactiveuser;
+            }
+            else { return null; }
+            
         }
     }
 }

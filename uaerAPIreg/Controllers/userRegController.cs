@@ -68,6 +68,16 @@ namespace userAPIreg.Controllers
             return isactiveuser;
         }
 
+        [HttpPost("/api/v1.0/user/register")]
+        public void adduserreg(string name, string mail , string password, int role_id , string Place)
+        {
+            string usserreg = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(usserreg);
+            UserviceMethod reg = new UserviceMethod();
+            reg.adduserreg(name,mail,password,role_id,Place, sqlcon);
+
+        }
+
         //booking flight.
         //post : book flight
         [HttpPost("/api/v1.0/flight/booking")]
@@ -97,13 +107,25 @@ namespace userAPIreg.Controllers
 
         //Fetch History with Email_ID
         //Get menthod
-        [HttpGet("/api/v1.0/flight/history/{email}")]
+        [HttpGet("/api/v1.0/flight/history/email")]
         public List<FetchuserModel> Fetchticketonemail(string email_id)
         {
             UserviceMethod userviceMethod = new UserviceMethod();
             string bookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
             SqlConnection sqlcon = new SqlConnection(bookconnection);
             List<FetchuserModel> fetchusersbyPNR = userviceMethod.fetchuserbyemail(sqlcon, email_id);
+            return fetchusersbyPNR;
+        }
+
+        //Fetch ticket to UI
+        //Get menthod
+        [HttpGet("/api/v1.0/flight/fetchtoui")]
+        public List<FetchuserModel> Fetchticketwhilebooking(string email_id,int number)
+        {
+            UserviceMethod userviceMethod = new UserviceMethod();
+            string bookconnection = _configuration.GetValue<string>("ConnectionStrings:Accountcon");
+            SqlConnection sqlcon = new SqlConnection(bookconnection);
+            List<FetchuserModel> fetchusersbyPNR = userviceMethod.showtickettoIU(sqlcon, email_id,number);
             return fetchusersbyPNR;
         }
 

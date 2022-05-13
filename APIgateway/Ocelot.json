@@ -32,6 +32,20 @@
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "airline"
     },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/add/admin/discount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/add/admin/discount",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+    },
 
     {
 
@@ -50,6 +64,127 @@
     },
     {
 
+      "DownstreamPathTemplate": "/api/v1.0/flight/airlineinventory",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/airlineinventory",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/get/airline",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/get/airline",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/getcancelledairline",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/getcancelledairline",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/flight/getdiscount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/getdiscount",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/getdiscountbycode",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/getdiscountbycode",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/cancelschedule",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/cancelschedule",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+
+    {
+
+      "DownstreamPathTemplate": "/cancelAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/cancelAirline",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
+      "DownstreamPathTemplate": "/activateAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "15611"
+        }
+      ],
+      "UpstreamPathTemplate": "/activateAirline",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "airline"
+
+    },
+    {
+
       "DownstreamPathTemplate": "/api/v1.0/flight/Login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -62,7 +197,34 @@
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "userservice"
     },
+    {
 
+      "DownstreamPathTemplate": "/api/v1.0/flight/fetchtoui",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/flight/fetchtoui",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "userservice"
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/v1.0/user/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2389"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/user/register",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "userservice"
+    },
     {
 
       "DownstreamPathTemplate": "/api/v1.0/flight/booking",
@@ -95,7 +257,7 @@
     },
     {
 
-      "DownstreamPathTemplate": "/api/v1.0/flight/history/{email}",
+      "DownstreamPathTemplate": "/api/v1.0/flight/history/email",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -103,7 +265,7 @@
           "Port": "2389"
         }
       ],
-      "UpstreamPathTemplate": "/api/v1.0/flight/history/{email}",
+      "UpstreamPathTemplate": "/api/v1.0/flight/history/email",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "userservice"
     },
@@ -134,7 +296,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/userLogin/Aurthenticate",
-      "UpstreamHttpMethod": [ "PATCH" ],
+      "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "Login"
     }
 

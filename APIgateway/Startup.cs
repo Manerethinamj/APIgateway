@@ -52,6 +52,16 @@ namespace APIgateway
             services.AddControllers();
             services.AddSwaggerForOcelot(Configuration);
             services.AddMvc();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "CorsPolicy",
+                    builder => {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +77,7 @@ namespace APIgateway
             }
             app.UseSwaggerForOcelotUI(Configuration);
             app.UseStaticFiles();
-
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseAuthentication();

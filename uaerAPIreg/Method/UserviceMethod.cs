@@ -98,6 +98,30 @@ namespace userAPIreg.Method
             return fetchuserModels;
         }
 
+        internal void adduserreg(string name, string mail, string password, int role_id, string place, SqlConnection sqlcon)
+        {
+            try
+            {
+                sqlcon.Open();
+                SqlCommand cmd = new SqlCommand("sp_user_reg", sqlcon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@mail", mail);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@role_id", role_id);
+                cmd.Parameters.AddWithValue("@place", place);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+        }
+
         internal List<FetchuserModel> fetchuserbyemail(SqlConnection emailconnection, string email_id)
         {
             List<FetchuserModel> fetchuserModels = new List<FetchuserModel>();
@@ -144,6 +168,56 @@ namespace userAPIreg.Method
             }
             return fetchuserModels;
         }
+
+
+        internal List<FetchuserModel> showtickettoIU(SqlConnection emailconnection, string email_id, int rowcount)
+        {
+            List<FetchuserModel> fetchuserModels = new List<FetchuserModel>();
+            try
+            {
+                emailconnection.Open();
+                SqlCommand cmd = new SqlCommand("SP_fetchtoUI_ticket", emailconnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@email", email_id);
+                cmd.Parameters.AddWithValue("@number", rowcount);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        fetchuserModels.Add(new FetchuserModel
+                        {
+                            PNR = reader["PNR"].ToString(),
+                            traveller_name = reader["traveller name"].ToString(),
+                            age = Convert.ToInt32(reader["age"].ToString()),
+                            Gender = reader["Gender"].ToString(),
+                            AirlineIDCompany = reader["AirlineIDCompany"].ToString(),
+                            AirlineCode = reader["AirlineCode"].ToString(),
+                            email_id = reader["email_id"].ToString(),
+                            booking_state = reader["booking_state"].ToString(),
+                            OnboardingPlace = reader["OnboardingPlace"].ToString(),
+                            DistinationPlace = reader["DistinationPlace"].ToString(),
+                            seat_id = Convert.ToInt32(reader["seat_id"].ToString()),
+                            OnboardingTime = Convert.ToDateTime(reader["OnboardingTime"].ToString()),
+                            DistinationTime = Convert.ToDateTime(reader["DistinationTime"].ToString()),
+                            meal_type = reader["meal_type"].ToString(),
+
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                emailconnection.Close();
+            }
+            return fetchuserModels;
+        }
+
 
         internal void Cancelbookedticket(SqlConnection sqlcon, string pnr, DateTime dateTime)
         {

@@ -24,6 +24,7 @@ namespace userAPIreg.Method
                     {
                         while (reader.Read())
                         {
+
                             isactive = true;
                         }
                     }

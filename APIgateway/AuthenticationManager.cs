@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using APIgateway.Controllers;
+using APIgateway.usermethod;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +14,7 @@ namespace APIgateway
 
     public class AuthenticationManager : IAurthenticationManager
     {
-        private readonly IDictionary<string, string> users = new Dictionary<string, string> { { "test1", "password1" }, { "test2", "password2" } };
+        private readonly IDictionary<string, string> users = new Dictionary<string, string>();
         private readonly string key;
         public AuthenticationManager(string key)
         {
@@ -21,6 +23,8 @@ namespace APIgateway
 
         public string Aurthenticate(string username, string password)
         {
+            users.Clear();
+            users.Add(username, password);
             if (!users.Any(p => p.Key == username && p.Value == password))
             {
                 return null;
