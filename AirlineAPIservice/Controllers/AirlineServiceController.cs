@@ -1,4 +1,5 @@
 ﻿using AirlineAPIservice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,6 +21,8 @@ namespace AirlineAPIservice.Controllers
         private readonly IConfiguration _configuration;
 
         // GET: api/<AirlineServiceController>
+        //airlineController
+
         public AirlineServiceController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -41,6 +44,7 @@ namespace AirlineAPIservice.Controllers
 
         //search Airline
         // GET api/<AirlineServiceController>/5
+        //[Authorize]
         [HttpGet("/api/v1.0/flight/search")]
         public List<InvrntoryModel> Get(string OnboardingPlace,string DistinationPlace)
         { 
@@ -65,6 +69,7 @@ namespace AirlineAPIservice.Controllers
             addtoInventoryclass.AddtoinventoryMethod(AirlineCode, OnboardingTime, OnboardingPlace, DistinationPlace, sqlcon);
 
         }
+
         
         
         //Airline  Register
@@ -79,6 +84,8 @@ namespace AirlineAPIservice.Controllers
 
         }
 
+
+
         //Add Discount
         //discount to be added..
         [HttpPost("/api/v1.0/flight/add/admin/discount")]
@@ -90,6 +97,8 @@ namespace AirlineAPIservice.Controllers
             adddis.AddDiscount(discountCode, amount, sqlcon);
 
         }
+
+
 
         //get inventory
         //get the inventory detail

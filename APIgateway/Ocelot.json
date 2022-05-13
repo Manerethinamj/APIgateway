@@ -10,10 +10,10 @@
           "Port": "15611"
         }
       ],
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //},
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/api/v1.0/flight/search",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "airline"
@@ -28,6 +28,10 @@
           "Port": "15611"
         }
       ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //},
       "UpstreamPathTemplate": "/api/v1.0/flight/airline/inventory/add",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "airline"
@@ -42,6 +46,10 @@
           "Port": "15611"
         }
       ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //},
       "UpstreamPathTemplate": "/api/v1.0/flight/add/admin/discount",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "SwaggerKey": "airline"
